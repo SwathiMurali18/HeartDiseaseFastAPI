@@ -7,9 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Add CORS middleware
 app = FastAPI()
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,13 +21,6 @@ import uvicorn
 from patientinfohdfe import patientData
 
 # 2. Declaring our FastAPI instance/ Create the app object
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 pickle_in = open("mlmodel.pkl", "rb")
 classifier = pickle.load(pickle_in)
 
