@@ -4,9 +4,16 @@
 import pickle
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
-# Add CORS middleware
+from patientinfohdfe import patientData
 app = FastAPI()
+pickle_in = open("mlmodel.pkl", "rb")
+classifier = pickle.load(pickle_in)
+# Add CORS middleware
+# Allow requests from any origin
+
+
 origins = ["http://localhost", "http://localhost:8080", "https://myapp.herokuapp.com", "http://localhost:5000"]
 app.add_middleware(
     CORSMiddleware,
@@ -16,13 +23,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-import uvicorn
-
-from patientinfohdfe import patientData
 
 # 2. Declaring our FastAPI instance/ Create the app object
-pickle_in = open("mlmodel.pkl", "rb")
-classifier = pickle.load(pickle_in)
+
 
 
 # 3. Defining path operation for root endpoint. Opens at http://127.0.0.1:8000/
